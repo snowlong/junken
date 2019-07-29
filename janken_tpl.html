@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+  <h1>じゃんけん</h1>
+</header>
+
+<main>
+  <ul>
+    <li id="gu_btn">
+      <button id="gu" value="1">グー</button>
+    </li>
+    <li id="cho_btn">
+      <button id="choki" value="2">チョキ</button>
+    </li>
+    <li id="par_btn">
+      <button id="par" value="3">パー</button>
+    </li>
+  </ul>
+  <div>コンピュータの出した手は？「<span id="pc_hands">なに？</span>」</div>
+  <div id="judgment">勝ち</div>
+</main>
+
+<footer></footer>
+<script>
+const HANDS = {
+  1: 'グー',
+  2: 'チョキ',
+  3: 'パー',
+  GU: 1,
+  CHOKI: 2,
+  PAR: 3,
+}
+const RESULT = {
+  draw: 'あいこ',
+  win: 'あなたの勝ち',
+  lose: 'あなたの負け',
+  DRAW: 'draw',
+  WIN: 'win',
+  LOSE: 'lose',
+}
+
+//じゃんけん用のSCRIPTを書いてください
+$('#gu, #choki, #par').on('click', function () {
+  console.log($(this).val());
+
+  var playerHands = +$(this).val();
+  var opponentHands = Math.ceil( Math.random() * 3 );
+
+  var result = janken(playerHands, opponentHands);
+
+  $('#pc_hands').html(HANDS[opponentHands]);
+  $('#judgment').html(RESULT[result]);
+
+  console.log(playerHands, opponentHands, result);
+
+});
+
+function janken(advocate, opponent) {
+  if(advocate === opponent) {
+    return RESULT.DRAW;
+  }
+
+  if(advocate === HANDS.GU) {
+    if(opponent === HANDS.CHOKI) {
+      return RESULT.WIN;
+    }
+
+    if(opponent === HANDS.PAR) {
+      return RESULT.LOSE;
+    }
+  }
+
+  if(advocate === HANDS.CHOKI) {
+    if(opponent === HANDS.GU) {
+      return RESULT.LOSE;
+    }
+
+    if(opponent === HANDS.PAR) {
+      return RESULT.WIN;
+    }
+  }
+
+  if(advocate === HANDS.PAR) {
+    if(opponent === HANDS.GU) {
+      return RESULT.WIN;
+    }
+
+    if(opponent === HANDS.CHOKI) {
+      return RESULT.LOSE;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

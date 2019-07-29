@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <link rel="stylesheet" href="css/sample.css">
+  <title>おみくじ</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>おみくじ</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li id="pull">おみくじを引く</li>
+    </ul>
+    <p id="img-wrapper">
+      <img src="" id="result" class="img-result" alt="">
+    </p>
+    <p id="echo"></p>
+  </main>
+
+  <footer>フッター</footer>
+  <script>
+$('#pull').on('click', function () {
+  // var omikujiResult = 1;
+
+  var omikujiResult = Math.ceil( Math.random() * 5 );
+
+  console.log(omikujiResult);
+
+  $('#echo').html('');
+  $('#result').attr('src', '');
+
+  if(omikujiResult === 1) {
+    $('#echo').html('<p>⭐⭐⭐⭐大吉⭐⭐⭐⭐</p>');
+    $('#result').attr('src', 'img/dai.jpg');
+
+    // alert('⭐⭐⭐⭐大吉⭐⭐⭐⭐');
+  } else if(omikujiResult === 2) {
+    $('#echo').html('<p>⭐⭐⭐中吉⭐⭐⭐</p>')
+    // alert('⭐⭐⭐中吉⭐⭐⭐');
+  } else if(omikujiResult === 3) {
+    $('#echo').html('<p>⭐⭐吉⭐⭐</p>')
+    // alert('⭐⭐吉⭐⭐');
+  } else if(omikujiResult === 4) {
+    $('#echo').html('<p>⭐小吉⭐</p>')
+    // alert('⭐小吉⭐');
+  } else if(omikujiResult === 5){
+    $('#echo').html('<p>☠☠☠凶☠☠☠</p>')
+    // alert('☠☠☠凶☠☠☠');
+  } else {
+    alert('🚀🚀🚀宇宙🚀🚀🚀');
+  }
+});
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
