@@ -21,7 +21,7 @@ p{
     font-size:120%;
     text-align: center;
     border-bottom:1px solid #fff;
-    height:200px;
+    height:60px;
 }
 ul{
     padding: 0;
@@ -56,11 +56,23 @@ li button {
     appearance: none;
 }
 
-.img-result {
-    text-align: center;
-    width: 50%;
+.result {
+    margin: 20px;
 }
 
-.img-result img {
-    /* width: 50%; */
+.result-img {
+    text-align: center;
+    height: 160px;
+    margin: 0 0 20px 0;
+}
+
+.result-img img {
+    height: 100%;
+}
+
+.result-img img.reverse {
+    transform: scale(-1, -1);
+}
+.center {
+    text-align: center;
 }
