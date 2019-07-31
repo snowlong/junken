@@ -76,6 +76,10 @@ li button {
 .result-img img.reverse {
     transform: scale(-1, -1);
 }
+.record p {
+    font-size: 100%
+}
+
 .center {
     text-align: center;
 }

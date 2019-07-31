@@ -9,7 +9,26 @@
 <title>じゃんけん</title>
 </head>
 <body>
+<!-- Facebook -->
+<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '499089663994027',
+    xfbml      : true,
+    version    : 'v4.0'
+  });
+  FB.AppEvents.logPageView();
+};
 
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "https://connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- /Facebook -->
 <header>
   <h1>じゃんけん</h1>
 </header>
@@ -35,7 +54,14 @@
   <div class="record"><p></p></div>
 </main>
 
-<footer></footer>
+<footer>
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+</footer>
 <script>
 let win = lose = draw = 0;
 const HANDS = {
