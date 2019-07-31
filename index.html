@@ -61,6 +61,7 @@ window.fbAsyncInit = function() {
 var provider = new firebase.auth.FacebookAuthProvider();
 firebase.auth().onAuthStateChanged(function(user) {
   if (!user) {
+    // ログイン情報が取得できなければログイン画面にリダイレクトする
     firebase.auth().signInWithRedirect(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
@@ -83,13 +84,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   } else {
     console.log(user);
-    // $('.fb-login-button').hide();
+    // 画面上にユーザー情報を表示する
     $('.user-info').show();
     $('.user-name').html(user.displayName);
   }
 });
-
-
 </script>
 <header>
   <h1>じゃんけん</h1>
@@ -150,13 +149,18 @@ const RESULT = {
   LOSE: 'lose',
 }
 
+const $resultImg = $('#judgment .result-img');
+const $player = $('#judgment .result-img.img-player');
+const $opponent = $('#judgment .result-img.img-opponent');
+const $record = $('.record p');
+
 //じゃんけん用のSCRIPTを書いてください
 $('#gu, #choki, #par').on('click', function () {
 
-  var playerHands = +$(this).val();
-  var opponentHands = Math.ceil( Math.random() * 3 );
+  const playerHands = +$(this).val();
+  const opponentHands = Math.ceil( Math.random() * 3 );
 
-  var result = janken(playerHands, opponentHands);
+  const result = janken(playerHands, opponentHands);
 
   console.log(playerHands, opponentHands);
 
@@ -164,9 +168,9 @@ $('#gu, #choki, #par').on('click', function () {
   $('#pc_hands').html(HANDS[opponentHands]);
   $('#judgment .result').html(RESULT[result]);
 
-  $('#judgment .result-img').children().remove();
-  $('#judgment .result-img.img-opponent').append('<img src="img/' + RESULT[opponentHands] + '.jpg" class="reverse">');
-  $('#judgment .result-img.img-player').append('<img src="img/' + RESULT[playerHands] + '.jpg">');
+  $resultImg.children().remove();
+  $opponent.append('<img src="img/' + RESULT[opponentHands] + '.jpg" class="reverse">').children('img').hide().slideDown();
+  $player.append('<img src="img/' + RESULT[playerHands] + '.jpg">').children('img').hide().slideDown();
 
   console.log(playerHands, opponentHands, result);
 
@@ -219,7 +223,7 @@ function record(result) {
     draw++;
   }
 
-  $('.record p').html('').html(win + '勝' + lose + '敗' + draw + '分');
+  $record.html('').html(win + '勝' + lose + '敗' + draw + '分');
 }
 
 

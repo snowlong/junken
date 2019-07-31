@@ -58,6 +58,10 @@ li button {
     appearance: none;
 }
 
+.judgment {
+    min-height: 340px;
+}
+
 .result {
     margin: 0;
 }
