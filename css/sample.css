@@ -79,8 +79,13 @@ li button {
 .record p {
     font-size: 100%
 }
+.user-info {
+    display: none;
+}
 .user-name {
     height: auto;
+    font-size: 14px;
+    text-align: right;
 }
 
 .center {

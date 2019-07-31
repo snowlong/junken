@@ -66,6 +66,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
   var user = result.user;
   console.log(user);
   $('.fb-login-button').hide();
+  $('.user-info').show();
   $('.user-name').html(user.displayName);
   // ...
 }).catch(function(error) {
@@ -83,7 +84,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 <header>
   <h1>じゃんけん</h1>
   <div class="user-auth-block">
-    <p class="user-name"></p>
+    <p class="user-info"><span class="user-name"></span>さんでログイン中</p>
     <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
   </div>
 </header>
