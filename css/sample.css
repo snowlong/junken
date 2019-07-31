@@ -79,6 +79,9 @@ li button {
 .record p {
     font-size: 100%
 }
+.user-name {
+    height: auto;
+}
 
 .center {
     text-align: center;
