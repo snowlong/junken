@@ -79,6 +79,9 @@ li button {
 .record p {
     font-size: 100%
 }
+.user-auth-block {
+    height: 30px;
+}
 .user-info {
     display: none;
     font-size: 12px;
