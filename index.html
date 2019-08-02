@@ -303,6 +303,10 @@ function record(result) {
 
 }
 
+// 拡大禁止
+window.addEventListener('touchend', event => {
+  event.preventDefault();
+}, false);
 
 </script>
 </body>
