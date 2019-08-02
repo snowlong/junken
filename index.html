@@ -93,18 +93,31 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     if(currentUser) {
       const userRef = db.collection('users')
-      const docRef = userRef.doc(currentUser.uid);
+      const userDocRef = userRef.doc(currentUser.uid);
 
-      console.log(docRef);
+      const recordRef = db.collection('records')
+      const recordDocRef = recordRef.doc(currentUser.uid);
 
       // ユーザーが存在しなかったらFirestoreに登録
-      if(!docRef.exists) {
+      if(!userDocRef.exists) {
         userRef.doc(currentUser.uid).set({
           uid: user.uid,
           userName: user.displayName,
           email: user.email
         })
       }
+
+      recordDocRef.get().then(function(doc) {
+        if(!doc.exists) {
+          recordRef.doc(currentUser.uid).set({
+            win: 0,
+            lose: 0,
+            draw: 0,
+            total: 0,
+            rate: 0
+          })
+        }
+      });
     }
   }
 });
@@ -242,8 +255,51 @@ function record(result) {
   if(result === RESULT.DRAW) {
     draw++;
   }
+  const total = win + lose + draw;
+  const rate = Math.round(win / total * 1000) / 1000;
 
-  $record.html('').html(win + '勝' + lose + '敗' + draw + '分');
+  const currentUser = firebase.auth().currentUser;
+  const db = firebase.firestore();
+  const recordRef = db.collection('records')
+  const recordDocRef = recordRef.doc(currentUser.uid);
+
+  recordDocRef.get().then((doc) => {
+    console.log("document data:", doc.data());
+    const docData = doc.data();
+
+    if(win > docData.win) {
+      recordDocRef.update({
+        win: win,
+      });
+      $record.html('').html('<span class="label color-orange">新記録</span>' + win + '勝' + lose + '敗' + draw + '分');
+      return;
+    }
+    if(lose > docData.lose) {
+      recordDocRef.update({
+        lose: lose,
+      });
+    }
+    if(draw > docData.draw) {
+      recordDocRef.update({
+        draw: draw,
+      });
+    }
+    if(total > docData.total) {
+      recordDocRef.update({
+        total: total,
+      });
+    }
+    if(total >= 10 && rate > docData.rate) {
+      recordDocRef.update({
+        rate: rate
+      });
+    }
+    $record.html('').html(win + '勝' + lose + '敗' + draw + '分');
+
+  }).catch((error) => {
+    console.log("Error getting cached document:", error);
+  });
+
 }
 
 
