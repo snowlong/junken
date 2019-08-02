@@ -304,9 +304,17 @@ function record(result) {
 }
 
 // 拡大禁止
-window.addEventListener('touchend', event => {
-  event.preventDefault();
-}, false);
+let flag = false;
+document.addEventListener('touchend', event => {
+  if (flag) {
+    event.preventDefault();
+  } else {
+    flag = true;
+    setTimeout(() => {
+      flag = false;
+    }, 500);
+  }
+}, true);
 
 </script>
 </body>
